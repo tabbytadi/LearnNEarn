@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+
+  <meta charset="UTF-8">
+  <title>Learn2Earn</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .hidden { display: none; }
+  </style>
+</head>
+<body>
+
+  <!-- Форма за регистрация -->
+  <section id="registrationSection" class="register-container">
+    <h2>Добре дошъл в Learn2Earn</h2>
+    <p class="subtitle">Регистрирай се, за да започнеш!</p>
+    <form id="registrationForm" class="register-form">
+      <input type="text" id="name" placeholder="Име" required>
+      <input type="text" id="interests" placeholder="Интереси" required>
+      <input type="text" id="subject" placeholder="Изучаван предмет" required>
+      <button type="submit">Регистрация</button>
+    </form>
+  </section>
+
+  <!-- Основно съдържание (скрито в началото) -->
+  <div class="search-upload">
+    <div class="search-wrapper">
+      <input type="text" id="searchInput" placeholder="Търси тема или предмет..." autocomplete="off">
+      <span class="search-icon">🔍</span>
+      <ul id="suggestions" class="suggestions-list"></ul>
+    </div>
+    
+    <input type="file" id="fileUpload">
+    <button onclick="goToTests()">Готово</button>
+  </div>
+  
+
+  <!-- Партньори (също скрити в началото) -->
+  <section class="marketplace hidden" id="marketplace">
+    <h2>Нашите партньори</h2>
+    <div class="partners">
+      <div class="partner">📚 Академия X</div>
+      <div class="partner">💡 Учебен Център Y</div>
+      <div class="partner">🎓 Образование Z</div>
+    </div>
+  </section>
+
+  <script>
+    const registrationForm = document.getElementById('registrationForm');
+    const registrationSection = document.getElementById('registrationSection');
+    const mainContent = document.getElementById('mainContent');
+    const marketplace = document.getElementById('marketplace');
+
+    registrationForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+      registrationSection.classList.add('hidden');
+      mainContent.classList.remove('hidden');
+      marketplace.classList.remove('hidden');
+    });
+
+    function goToTests() {
+      window.location.href = "tests.html";
+    }
+  </script>
+
+<script src="main.js"></script>
+</body>
+</html>

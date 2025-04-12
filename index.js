@@ -1,21 +1,26 @@
-import OpenAI from 'openai';
-const openai = new OpenAI({
-  baseURL: "https://openrouter.ai/api/v1",
-  apiKey: "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",
-});
-async function main() {
-  const completion = await openai.chat.completions.create({
-    model: "deepseek/deepseek-r1-zero:free",
-    messages: [
-      {
-        "role": "user",
-        "content": "Generate me a history test with multiple choices for 4th grade. Create 3 questions"
-      }
-    ],
+import Groq from "groq-sdk";
 
-  });
+const groq = new Groq({ apiKey: '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' });
 
-  console.log(completion.choices[0].message.content);
+export async function main() {
+  const chatCompletion = await getGroqChatCompletion();
+  // Print the completion returned by the LLM.
+  console.log(chatCompletion.choices[0]?.message?.content || "");
 }
 
-await main();
+export async function getGroqChatCompletion() {
+  return groq.chat.completions.create({
+    messages: [
+      {
+        role: "user",
+        content: "Give me 10 multiple choice questions on programming in this json format with a), b), c), d) options and the correct letter of the answer:{question1:'', question2:'' ...}",
+      }
+    ],
+    model: "llama-3.3-70b-versatile",
+    response_format: {
+      type: "json_object"
+    },
+  });
+}
+
+await main()

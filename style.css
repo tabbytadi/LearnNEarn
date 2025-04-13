@@ -462,24 +462,51 @@ nav {
 .card-number {
   font-size: 14px;
   font-weight: 600;
-  color: var(--primary-light);
+  color: var(--secondary);
   margin-bottom: 15px;
 }
 
 .feature-card h3 {
   font-size: 22px;
   margin-bottom: 15px;
-  color: var(--primary);
+  color: var(--secondary);
 }
 
 .feature-card p {
-  color: var(--dark-gray);
+  color: var(--white);
 }
 
 /* About Section */
 #about .feature-cards {
   grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
 }
+
+.feature-card {
+  position: relative;
+  background: url("./images/login-background.png") no-repeat center center;
+  background-size: cover;
+  color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.feature-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.4);
+  z-index: 0;
+}
+
+.feature-card * {
+  position: relative;
+  z-index: 1;
+}
+
 
 /* Contact Section */
 .contact-form {
@@ -867,6 +894,8 @@ footer {
   .feature-card {
     padding: 30px;
   }
+
+
 
   .footer-content {
     flex-direction: column;

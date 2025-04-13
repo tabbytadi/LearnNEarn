@@ -1,559 +1,586 @@
 <!DOCTYPE html>
 <html lang="bg">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Learn&amp;Earn - Вашият AI Учител</title>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <style>
-        :root {
-            --primary: #1a2038;
-            --accent: #9ee6f9;
-            --light: #e7e8e7;
-            --success: #4ade80;
-            --warning: #fbbf24;
-            --error: #f87171;
-            --gradient-start: #1a2038;
-            --gradient-end: #2d3b55;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Learn&amp;Earn - Вашият AI Учител</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #1a2038;
+      --accent: #9ee6f9;
+      --light: #e7e8e7;
+      --success: #4ade80;
+      --warning: #fbbf24;
+      --error: #f87171;
+      --gradient-start: #1a2038;
+      --gradient-end: #2d3b55;
+    }
 
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Inter', sans-serif;
-        }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Inter', sans-serif;
+    }
 
-        body {
-            background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
-            min-height: 100vh;
-            color: var(--light);
-            overflow-x: hidden;
-        }
+    body {
+      background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
+      min-height: 100vh;
+      color: var(--light);
+      overflow-x: hidden;
+    }
 
-        .container {
-            display: grid;
-            grid-template-columns: 1fr 2fr 1fr;
-            gap: 2rem;
-            padding: 2rem;
-            max-width: 100%;
-            margin: 0 auto;
-            min-height: 100vh;
-        }
+    .container {
+      display: grid;
+      grid-template-columns: 1fr 2fr 1fr;
+      gap: 2rem;
+      padding: 2rem;
+      max-width: 100%;
+      margin: 0 auto;
+      min-height: 100vh;
+    }
 
-        .section {
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(10px);
-            border-radius: 1.5rem;
-            padding: 2rem;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            transition: all 0.3s ease;
-        }
+    .section {
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(10px);
+      border-radius: 1.5rem;
+      padding: 2rem;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      transition: all 0.3s ease;
+    }
 
-        .section:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.2);
-        }
+    .section:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.2);
+    }
 
-        .card h2 {
-            color: #2c3e50;
-            margin-bottom: 1rem;
-            text-align: center;
-        }
+    .card h2 {
+      color: #2c3e50;
+      margin-bottom: 1rem;
+      text-align: center;
+    }
 
-        .timer h2,
-        .break-timer h2 {
-            text-align: center;
-            margin-bottom: 1rem;
-        }
+    .timer h2,
+    .break-timer h2 {
+      text-align: center;
+      margin-bottom: 1rem;
+    }
 
-        .timer-display {
-            font-size: 2.5rem;
-            font-weight: bold;
-            text-align: center;
-            margin: 1rem 0;
-        }
+    .timer-display {
+      font-size: 2.5rem;
+      font-weight: bold;
+      text-align: center;
+      margin: 1rem 0;
+    }
 
-        .break-timer-display {
-            font-size: 1.5rem;
-            font-weight: bold;
-            text-align: center;
-            margin: 1rem 0;
-        }
+    .break-timer-display {
+      font-size: 1.5rem;
+      font-weight: bold;
+      text-align: center;
+      margin: 1rem 0;
+    }
 
-        .input-field {
-            width: 100%;
-            padding: 1rem;
-            border-radius: 1rem;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            background: rgba(255, 255, 255, 0.05);
-            color: var(--light);
-            font-size: 1rem;
-            transition: all 0.3s ease;
-            margin-bottom: 1rem;
-        }
+    .input-field {
+      width: 100%;
+      padding: 1rem;
+      border-radius: 1rem;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      background: rgba(255, 255, 255, 0.05);
+      color: var(--light);
+      font-size: 1rem;
+      transition: all 0.3s ease;
+      margin-bottom: 1rem;
+    }
 
-        .input-field:focus {
-            outline: none;
-            border-color: var(--accent);
-            box-shadow: 0 0 0 2px rgba(158, 230, 249, 0.2);
-        }
+    .input-field:focus {
+      outline: none;
+      border-color: var(--accent);
+      box-shadow: 0 0 0 2px rgba(158, 230, 249, 0.2);
+    }
 
-        .btn {
-            background: linear-gradient(135deg, var(--accent), #6bd5f0);
-            color: var(--primary);
-            border: none;
-            padding: 0.75rem 1.5rem;
-            border-radius: 0.75rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            width: 100%;
-        }
+    .btn {
+      background: linear-gradient(135deg, var(--accent), #6bd5f0);
+      color: var(--primary);
+      border: none;
+      padding: 0.75rem 1.5rem;
+      border-radius: 0.75rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      width: 100%;
+    }
 
-        .btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(158, 230, 249, 0.3);
-        }
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(158, 230, 249, 0.3);
+    }
 
-        .file-upload {
-            position: relative;
-            margin-bottom: 1rem;
-        }
+    .file-upload {
+      position: relative;
+      margin-bottom: 1rem;
+    }
 
-        .file-input {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            opacity: 0;
-            cursor: pointer;
-        }
+    .file-input {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+      cursor: pointer;
+    }
 
-        .file-label {
-            display: block;
-            padding: 1rem;
-            border-radius: 1rem;
-            background: rgba(255, 255, 255, 0.05);
-            border: 2px dashed rgba(255, 255, 255, 0.1);
-            text-align: center;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
+    .file-label {
+      display: block;
+      padding: 1rem;
+      border-radius: 1rem;
+      background: rgba(255, 255, 255, 0.05);
+      border: 2px dashed rgba(255, 255, 255, 0.1);
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
 
-        .file-label:hover {
-            border-color: var(--accent);
-            background: rgba(158, 230, 249, 0.05);
-        }
+    .file-label:hover {
+      border-color: var(--accent);
+      background: rgba(158, 230, 249, 0.05);
+    }
 
-        .task-list {
-            list-style: none;
-            margin-top: 1rem;
-        }
+    .task-list {
+      list-style: none;
+      margin-top: 1rem;
+    }
 
-        .task-item {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            padding: 1rem;
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 0.75rem;
-            margin-bottom: 0.5rem;
-            transition: all 0.3s ease;
-        }
+    .task-item {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 1rem;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 0.75rem;
+      margin-bottom: 0.5rem;
+      transition: all 0.3s ease;
+    }
 
-        .task-item:hover {
-            background: rgba(255, 255, 255, 0.1);
-            transform: translateX(5px);
-        }
+    .task-item:hover {
+      background: rgba(255, 255, 255, 0.1);
+      transform: translateX(5px);
+    }
 
-        .task-item.completed {
-            opacity: 0.7;
-            text-decoration: line-through;
-        }
+    .task-item.completed {
+      opacity: 0.7;
+      text-decoration: line-through;
+    }
 
-        .timer-controls {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 0.5rem;
-        }
+    .timer-controls {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.5rem;
+    }
 
-        .player-container {
-            margin-top: 1rem;
-            border-radius: 1rem;
-            overflow: hidden;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-        }
+    .player-container {
+      margin-top: 1rem;
+      border-radius: 1rem;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
 
-        .loading {
-            display: none;
-            padding: 2rem;
-            text-align: center;
-        }
+    .loading {
+      display: none;
+      padding: 2rem;
+      text-align: center;
+    }
 
-        .loading-content {
-            animation: fadeIn 0.3s ease-in-out;
-        }
+    .loading-content {
+      animation: fadeIn 0.3s ease-in-out;
+    }
 
-        .loading-robot {
-            color: var(--accent);
-            animation: bounce 1s infinite;
-        }
+    .loading-robot {
+      color: var(--accent);
+      animation: bounce 1s infinite;
+    }
 
-        .loading-dots {
-            margin-top: 1rem;
-        }
+    .loading-dots {
+      margin-top: 1rem;
+    }
 
-        .dot {
-            width: 8px;
-            height: 8px;
-            background-color: var(--accent);
-            border-radius: 50%;
-            display: inline-block;
-            animation: dotPulse 1.5s infinite;
-        }
+    .dot {
+      width: 8px;
+      height: 8px;
+      background-color: var(--accent);
+      border-radius: 50%;
+      display: inline-block;
+      animation: dotPulse 1.5s infinite;
+    }
 
-        .dot:nth-child(2) {
-            animation-delay: 0.2s;
-        }
+    .dot:nth-child(2) {
+      animation-delay: 0.2s;
+    }
 
-        .dot:nth-child(3) {
-            animation-delay: 0.4s;
-        }
+    .dot:nth-child(3) {
+      animation-delay: 0.4s;
+    }
 
-        @keyframes bounce {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
-        }
+    @keyframes bounce {
 
-        @keyframes dotPulse {
-            0%, 100% { transform: scale(1); opacity: 1; }
-            50% { transform: scale(1.5); opacity: 0.5; }
-        }
+      0%,
+      100% {
+        transform: translateY(0);
+      }
 
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
+      50% {
+        transform: translateY(-10px);
+      }
+    }
 
-        .markdown-content {
-            font-family: 'Inter', sans-serif;
-            line-height: 1.6;
-            color: var(--light);
-        }
+    @keyframes dotPulse {
 
-        .markdown-content h1 {
-            font-size: 2rem;
-            font-weight: 700;
-            color: var(--accent);
-            margin-bottom: 1.5rem;
-            padding-bottom: 0.5rem;
-            border-bottom: 2px solid rgba(158, 230, 249, 0.2);
-        }
+      0%,
+      100% {
+        transform: scale(1);
+        opacity: 1;
+      }
 
-        .markdown-content h2 {
-            font-size: 1.5rem;
-            font-weight: 600;
-            color: var(--light);
-            margin: 1.5rem 0 1rem;
-            padding-left: 0.5rem;
-            border-left: 3px solid var(--accent);
-        }
+      50% {
+        transform: scale(1.5);
+        opacity: 0.5;
+      }
+    }
 
-        .markdown-content p {
-            margin-bottom: 1rem;
-            line-height: 1.7;
-        }
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
 
-        .markdown-content ul, .markdown-content ol {
-            margin: 1rem 0;
-            padding-left: 2rem;
-        }
+      to {
+        opacity: 1;
+      }
+    }
 
-        .markdown-content li {
-            margin-bottom: 0.75rem;
-            position: relative;
-        }
+    .markdown-content {
+      font-family: 'Inter', sans-serif;
+      line-height: 1.6;
+      color: var(--light);
+    }
 
-        .markdown-content ul li::before {
-            content: "•";
-            color: var(--accent);
-            position: absolute;
-            left: -1.25rem;
-        }
+    .markdown-content h1 {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--accent);
+      margin-bottom: 1.5rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 2px solid rgba(158, 230, 249, 0.2);
+    }
 
-        @media (max-width: 1024px) {
-            .container {
-                grid-template-columns: 1fr;
-            }
-        }
+    .markdown-content h2 {
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: var(--light);
+      margin: 1.5rem 0 1rem;
+      padding-left: 0.5rem;
+      border-left: 3px solid var(--accent);
+    }
 
-        .timer-option {
-            flex: 1;
-            padding: 0.5rem;
-            font-size: 0.9rem;
-        }
+    .markdown-content p {
+      margin-bottom: 1rem;
+      line-height: 1.7;
+    }
 
-        .custom-timer {
-            display: flex;
-            gap: 0.5rem;
-        }
+    .markdown-content ul,
+    .markdown-content ol {
+      margin: 1rem 0;
+      padding-left: 2rem;
+    }
 
-        .custom-timer input {
-            flex: 1;
-            width: 100%;
-        }
+    .markdown-content li {
+      margin-bottom: 0.75rem;
+      position: relative;
+    }
 
-        .custom-timer button {
-            flex: 1;
-            width: 100%;
-        }
+    .markdown-content ul li::before {
+      content: "•";
+      color: var(--accent);
+      position: absolute;
+      left: -1.25rem;
+    }
 
-        .break-timer {
-            background: rgba(255, 255, 255, 0.05);
-            padding: 1rem;
-            border-radius: 1rem;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
+    @media (max-width: 1024px) {
+      .container {
+        grid-template-columns: 1fr;
+      }
+    }
 
-        .break-timer h3 {
-            font-size: 1.2rem;
-            font-weight: 600;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-    </style>
+    .timer-option {
+      flex: 1;
+      padding: 0.5rem;
+      font-size: 0.9rem;
+    }
+
+    .custom-timer {
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    .custom-timer input {
+      flex: 1;
+      width: 100%;
+    }
+
+    .custom-timer button {
+      flex: 1;
+      width: 100%;
+    }
+
+    .break-timer {
+      background: rgba(255, 255, 255, 0.05);
+      padding: 1rem;
+      border-radius: 1rem;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .break-timer h3 {
+      font-size: 1.2rem;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+  </style>
 </head>
+
 <body>
-    <div class="container">
-        <!-- Left Section - Music Player and Tasks -->
-        <div class="section">
-            <h2>🎵 Музика</h2>
-            <div class="music-controls">
-                <input type="text" id="spotify-link" placeholder="Въведете линк към Spotify плейлист" class="input-field">
-                <button onclick="loadPlaylist()" class="btn">Зареди</button>
-            </div>
-            <div id="player-container" class="player-container">
-                <!-- Spotify player will be embedded here -->
-            </div>
+  <div class="container">
+    <!-- Left Section - Music Player and Tasks -->
+    <div class="section">
+      <h2>🎵 Музика</h2>
+      <div class="music-controls">
+        <input type="text" id="spotify-link" placeholder="Въведете линк към Spotify плейлист" class="input-field">
+        <button onclick="loadPlaylist()" class="btn">Зареди</button>
+      </div>
+      <div id="player-container" class="player-container">
+        <!-- Spotify player will be embedded here -->
+      </div>
 
-            <h2>📝 Задачи</h2>
-            <div class="task-input">
-                <input type="text" id="task-input" placeholder="Добави нова задача" class="input-field">
-                <button onclick="addTask()" class="btn">Добави</button>
-            </div>
-            <ul id="task-list" class="task-list">
-                <!-- Tasks will be added here -->
-            </ul>
-        </div>
-
-        <!-- Center Section - AI Assistant -->
-        <div class="section">
-            <h2>🤖 AI Учебен Помощник</h2>
-            <div class="input-section">
-                <div class="mb-4">
-                    <label for="custom-prompt" class="block text-sm font-medium text-accent mb-2">Вашите инструкции</label>
-                    <textarea id="custom-prompt" placeholder="Въведете вашите инструкции тук..." class="input-field" rows="4"></textarea>
-                </div>
-                <div class="mb-4">
-                    <label class="block text-sm font-medium text-accent mb-2">Качи PDF файл</label>
-                    <div class="file-upload">
-                        <input type="file" id="file-upload" accept=".pdf" class="file-input">
-                        <label for="file-upload" class="file-label">Изберете PDF файл</label>
-                    </div>
-                </div>
-                <button id="generatePlan" class="btn flex items-center justify-center gap-2">
-                    <i class="fas fa-robot"></i>
-                    Генерирай Учебен План
-                </button>
-            </div>
-            <div id="loading" class="loading hidden">
-                <div class="loading-content flex flex-col items-center justify-center gap-4">
-                    <div class="loading-robot text-4xl">
-                        <i class="fas fa-robot"></i>
-                    </div>
-                    <div class="loading-dots flex gap-2">
-                        <div class="dot"></div>
-                        <div class="dot"></div>
-                        <div class="dot"></div>
-                    </div>
-                </div>
-            </div>
-            <div id="error" class="error hidden" style="color: var(--error); padding: 1rem; margin: 1rem 0; background: rgba(248, 113, 113, 0.1); border-radius: 0.5rem;"></div>
-            <div id="study-plan" class="study-plan markdown-content p-4 rounded-lg bg-opacity-10 bg-white"></div>
-        </div>
-
-        <!-- Right Section - Timer -->
-        <div class="section">
-            <h2>⏱️ Таймер</h2>
-            <div class="timer">
-                <div class="timer-options mb-4">
-                    <div class="custom-timer flex gap-2 mb-4">
-                        <input type="number" id="custom-time" min="1" max="120" placeholder="Минути" class="input-field">
-                        <button onclick="setCustomTimer()" class="btn">Задай</button>
-                    </div>
-                    <div class="flex gap-2">
-                        <button onclick="setTimer(25)" class="timer-option btn">25 мин</button>
-                        <button onclick="setTimer(45)" class="timer-option btn">45 мин</button>
-                        <button onclick="setTimer(60)" class="timer-option btn">60 мин</button>
-                    </div>
-                </div>
-                <div class="timer-display">
-                    <span id="minutes">25</span>:<span id="seconds">00</span>
-                </div>
-                <div class="timer-controls">
-                    <button onclick="startTimer()" class="btn">Старт</button>
-                    <button onclick="pauseTimer()" class="btn">Пауза</button>
-                    <button onclick="resetTimer()" class="btn">Нулирай</button>
-                </div>
-            </div>
-            <div class="break-timer mt-4">
-                <h3 class="text-accent mb-2">Почивка</h3>
-                <div class="timer-display">
-                    <span id="break-minutes">05</span>:<span id="break-seconds">00</span>
-                </div>
-                <div class="timer-controls">
-                    <button onclick="startBreakTimer()" class="btn">Старт</button>
-                    <button onclick="pauseBreakTimer()" class="btn">Пауза</button>
-                    <button onclick="resetBreakTimer()" class="btn">Нулирай</button>
-                </div>
-            </div>
-        </div>
+      <h2>📝 Задачи</h2>
+      <div class="task-input">
+        <input type="text" id="task-input" placeholder="Добави нова задача" class="input-field">
+        <button onclick="addTask()" class="btn">Добави</button>
+      </div>
+      <ul id="task-list" class="task-list">
+        <!-- Tasks will be added here -->
+      </ul>
     </div>
 
-    <div class="loading-spinner" id="loadingSpinner">
-        <div class="spinner-border text-primary" role="status">
-            <span class="visually-hidden">Loading...</span>
+    <!-- Center Section - AI Assistant -->
+    <div class="section">
+      <h2>🤖 AI Учебен Помощник</h2>
+      <div class="input-section">
+        <div class="mb-4">
+          <label for="custom-prompt" class="block text-sm font-medium text-accent mb-2">Вашите инструкции</label>
+          <textarea id="custom-prompt" placeholder="Въведете вашите инструкции тук..." class="input-field"
+            rows="4"></textarea>
         </div>
-        <p id="loadingText">Generating study plan...</p>
+        <div class="mb-4">
+          <label class="block text-sm font-medium text-accent mb-2">Качи PDF файл</label>
+          <div class="file-upload">
+            <input type="file" id="file-upload" accept=".pdf" class="file-input">
+            <label for="file-upload" class="file-label">Изберете PDF файл</label>
+          </div>
+        </div>
+        <button id="generatePlan" class="btn flex items-center justify-center gap-2">
+          <i class="fas fa-robot"></i>
+          Генерирай Учебен План
+        </button>
+      </div>
+      <div id="loading" class="loading hidden">
+        <div class="loading-content flex flex-col items-center justify-center gap-4">
+          <div class="loading-robot text-4xl">
+            <i class="fas fa-robot"></i>
+          </div>
+          <div class="loading-dots flex gap-2">
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+          </div>
+        </div>
+      </div>
+      <div id="error" class="error hidden"
+        style="color: var(--error); padding: 1rem; margin: 1rem 0; background: rgba(248, 113, 113, 0.1); border-radius: 0.5rem;">
+      </div>
+      <div id="study-plan" class="study-plan markdown-content p-4 rounded-lg bg-opacity-10 bg-white"></div>
     </div>
 
-    <div id="result"></div>
+    <!-- Right Section - Timer -->
+    <div class="section">
+      <h2>⏱️ Таймер</h2>
+      <div class="timer">
+        <div class="timer-options mb-4">
+          <div class="custom-timer flex gap-2 mb-4">
+            <input type="number" id="custom-time" min="1" max="120" placeholder="Минути" class="input-field">
+            <button onclick="setCustomTimer()" class="btn">Задай</button>
+          </div>
+          <div class="flex gap-2">
+            <button onclick="setTimer(25)" class="timer-option btn">25 мин</button>
+            <button onclick="setTimer(45)" class="timer-option btn">45 мин</button>
+            <button onclick="setTimer(60)" class="timer-option btn">60 мин</button>
+          </div>
+        </div>
+        <div class="timer-display">
+          <span id="minutes">25</span>:<span id="seconds">00</span>
+        </div>
+        <div class="timer-controls">
+          <button onclick="startTimer()" class="btn">Старт</button>
+          <button onclick="pauseTimer()" class="btn">Пауза</button>
+          <button onclick="resetTimer()" class="btn">Нулирай</button>
+        </div>
+      </div>
+      <div class="break-timer mt-4">
+        <h3 class="text-accent mb-2">Почивка</h3>
+        <div class="timer-display">
+          <span id="break-minutes">05</span>:<span id="break-seconds">00</span>
+        </div>
+        <div class="timer-controls">
+          <button onclick="startBreakTimer()" class="btn">Старт</button>
+          <button onclick="pauseBreakTimer()" class="btn">Пауза</button>
+          <button onclick="resetBreakTimer()" class="btn">Нулирай</button>
+        </div>
+      </div>
+    </div>
+  </div>
 
-    <script>
-        // Timer functionality
-        let timer;
-        let breakTimer;
-        let timeLeft = 25 * 60; // 25 minutes in seconds
-        let breakTimeLeft = 5 * 60; // 5 minutes in seconds
-        let isRunning = false;
-        let isBreakRunning = false;
+  <div class="loading-spinner" id="loadingSpinner">
+    <div class="spinner-border text-primary" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+    <p id="loadingText">Generating study plan...</p>
+  </div>
 
-        function setTimer(minutes) {
-            timeLeft = minutes * 60;
+  <div id="result"></div>
+
+  <script>
+    // Timer functionality
+    let timer;
+    let breakTimer;
+    let timeLeft = 25 * 60; // 25 minutes in seconds
+    let breakTimeLeft = 5 * 60; // 5 minutes in seconds
+    let isRunning = false;
+    let isBreakRunning = false;
+
+    function setTimer(minutes) {
+      timeLeft = minutes * 60;
+      updateTimerDisplay();
+    }
+
+    function setCustomTimer() {
+      const customTime = document.getElementById('custom-time').value;
+      if (customTime && customTime > 0 && customTime <= 120) {
+        timeLeft = customTime * 60;
+        updateTimerDisplay();
+      }
+    }
+
+    function updateTimerDisplay() {
+      const minutes = Math.floor(timeLeft / 60);
+      const seconds = timeLeft % 60;
+      document.getElementById('minutes').textContent = minutes.toString().padStart(2, '0');
+      document.getElementById('seconds').textContent = seconds.toString().padStart(2, '0');
+    }
+
+    function updateBreakTimerDisplay() {
+      const minutes = Math.floor(breakTimeLeft / 60);
+      const seconds = breakTimeLeft % 60;
+      document.getElementById('break-minutes').textContent = minutes.toString().padStart(2, '0');
+      document.getElementById('break-seconds').textContent = seconds.toString().padStart(2, '0');
+    }
+
+    function startTimer() {
+      if (!isRunning) {
+        isRunning = true;
+        timer = setInterval(() => {
+          if (timeLeft > 0) {
+            timeLeft--;
             updateTimerDisplay();
-        }
-
-        function setCustomTimer() {
-            const customTime = document.getElementById('custom-time').value;
-            if (customTime && customTime > 0 && customTime <= 120) {
-                timeLeft = customTime * 60;
-                updateTimerDisplay();
-            }
-        }
-
-        function updateTimerDisplay() {
-            const minutes = Math.floor(timeLeft / 60);
-            const seconds = timeLeft % 60;
-            document.getElementById('minutes').textContent = minutes.toString().padStart(2, '0');
-            document.getElementById('seconds').textContent = seconds.toString().padStart(2, '0');
-        }
-
-        function updateBreakTimerDisplay() {
-            const minutes = Math.floor(breakTimeLeft / 60);
-            const seconds = breakTimeLeft % 60;
-            document.getElementById('break-minutes').textContent = minutes.toString().padStart(2, '0');
-            document.getElementById('break-seconds').textContent = seconds.toString().padStart(2, '0');
-        }
-
-        function startTimer() {
-            if (!isRunning) {
-                isRunning = true;
-                timer = setInterval(() => {
-                    if (timeLeft > 0) {
-                        timeLeft--;
-                        updateTimerDisplay();
-                    } else {
-                        clearInterval(timer);
-                        isRunning = false;
-                        alert('Time is up! Time for a break!');
-                        startBreakTimer();
-                    }
-                }, 1000);
-            }
-        }
-
-        function pauseTimer() {
-            if (isRunning) {
-                clearInterval(timer);
-                isRunning = false;
-            }
-        }
-
-        function resetTimer() {
+          } else {
             clearInterval(timer);
             isRunning = false;
-            timeLeft = 25 * 60;
-            updateTimerDisplay();
-        }
+            alert('Time is up! Time for a break!');
+            startBreakTimer();
+          }
+        }, 1000);
+      }
+    }
 
-        function startBreakTimer() {
-            if (!isBreakRunning) {
-                isBreakRunning = true;
-                breakTimer = setInterval(() => {
-                    if (breakTimeLeft > 0) {
-                        breakTimeLeft--;
-                        updateBreakTimerDisplay();
-                    } else {
-                        clearInterval(breakTimer);
-                        isBreakRunning = false;
-                        alert('Break time is over! Time to work!');
-                    }
-                }, 1000);
-            }
-        }
+    function pauseTimer() {
+      if (isRunning) {
+        clearInterval(timer);
+        isRunning = false;
+      }
+    }
 
-        function pauseBreakTimer() {
-            if (isBreakRunning) {
-                clearInterval(breakTimer);
-                isBreakRunning = false;
-            }
-        }
+    function resetTimer() {
+      clearInterval(timer);
+      isRunning = false;
+      timeLeft = 25 * 60;
+      updateTimerDisplay();
+    }
 
-        function resetBreakTimer() {
+    function startBreakTimer() {
+      if (!isBreakRunning) {
+        isBreakRunning = true;
+        breakTimer = setInterval(() => {
+          if (breakTimeLeft > 0) {
+            breakTimeLeft--;
+            updateBreakTimerDisplay();
+          } else {
             clearInterval(breakTimer);
             isBreakRunning = false;
-            breakTimeLeft = 5 * 60;
-            updateBreakTimerDisplay();
-        }
+            alert('Break time is over! Time to work!');
+          }
+        }, 1000);
+      }
+    }
 
-        // Task Manager
-        let tasks = [];
+    function pauseBreakTimer() {
+      if (isBreakRunning) {
+        clearInterval(breakTimer);
+        isBreakRunning = false;
+      }
+    }
 
-        function addTask() {
-            const taskInput = document.getElementById('task-input');
-            const taskText = taskInput.value.trim();
-            
-            if (taskText) {
-                tasks.push({ text: taskText, completed: false });
-                taskInput.value = '';
-                updateTaskList();
-            }
-        }
+    function resetBreakTimer() {
+      clearInterval(breakTimer);
+      isBreakRunning = false;
+      breakTimeLeft = 5 * 60;
+      updateBreakTimerDisplay();
+    }
 
-        function updateTaskList() {
-            const taskList = document.querySelector('.task-list');
-            taskList.innerHTML = '';
-            
-            tasks.forEach((task, index) => {
-                const taskItem = document.createElement('div');
-                taskItem.className = 'task-item';
-                taskItem.innerHTML = `
+    // Task Manager
+    let tasks = [];
+
+    function addTask() {
+      const taskInput = document.getElementById('task-input');
+      const taskText = taskInput.value.trim();
+
+      if (taskText) {
+        tasks.push({ text: taskText, completed: false });
+        taskInput.value = '';
+        updateTaskList();
+      }
+    }
+
+    function updateTaskList() {
+      const taskList = document.querySelector('.task-list');
+      taskList.innerHTML = '';
+
+      tasks.forEach((task, index) => {
+        const taskItem = document.createElement('div');
+        taskItem.className = 'task-item';
+        taskItem.innerHTML = `
                     <span class="${task.completed ? 'line-through text-gray-400' : ''}">${task.text}</span>
                     <div>
                         <button onclick="toggleTask(${index})" class="text-accent mr-2">
@@ -564,28 +591,28 @@
                         </button>
                     </div>
                 `;
-                taskList.appendChild(taskItem);
-            });
-        }
+        taskList.appendChild(taskItem);
+      });
+    }
 
-        function toggleTask(index) {
-            tasks[index].completed = !tasks[index].completed;
-            updateTaskList();
-        }
+    function toggleTask(index) {
+      tasks[index].completed = !tasks[index].completed;
+      updateTaskList();
+    }
 
-        function deleteTask(index) {
-            tasks.splice(index, 1);
-            updateTaskList();
-        }
+    function deleteTask(index) {
+      tasks.splice(index, 1);
+      updateTaskList();
+    }
 
-        // Music Player
-        function loadPlaylist() {
-            const spotifyLink = document.getElementById('spotify-link').value.trim();
-            if (spotifyLink) {
-                // Extract playlist ID from Spotify URL
-                const playlistId = spotifyLink.split('/').pop().split('?')[0];
-                const playerContainer = document.getElementById('player-container');
-                playerContainer.innerHTML = `
+    // Music Player
+    function loadPlaylist() {
+      const spotifyLink = document.getElementById('spotify-link').value.trim();
+      if (spotifyLink) {
+        // Extract playlist ID from Spotify URL
+        const playlistId = spotifyLink.split('/').pop().split('?')[0];
+        const playerContainer = document.getElementById('player-container');
+        playerContainer.innerHTML = `
                     <iframe src="https://open.spotify.com/embed/playlist/${playlistId}" 
                             width="100%" 
                             height="380" 
@@ -594,215 +621,274 @@
                             allow="encrypted-media">
                     </iframe>
                 `;
-            }
+      }
+    }
+
+    // AI Assistant functionality
+    document.addEventListener('DOMContentLoaded', function () {
+      const generatePlanBtn = document.getElementById('generatePlan');
+      const customPrompt = document.getElementById('custom-prompt');
+      const fileUpload = document.getElementById('file-upload');
+      const studyPlanDiv = document.getElementById('study-plan');
+      const loadingDiv = document.getElementById('loading');
+      const errorDiv = document.getElementById('error');
+
+      generatePlanBtn.addEventListener('click', async function () {
+        const prompt = customPrompt.value.trim();
+        const file = fileUpload.files[0];
+
+        if (!prompt && !file) {
+          errorDiv.innerHTML = `
+                        <div class="flex flex-col items-center gap-2">
+                            <p class="text-lg font-semibold">Моля, въведете инструкции</p>
+                            <p class="text-sm">Трябва да въведете инструкции или да качите PDF файл</p>
+                        </div>
+                    `;
+          errorDiv.classList.remove('hidden');
+          return;
         }
 
-        // AI Assistant functionality
-        document.addEventListener('DOMContentLoaded', function() {
-            const generatePlanBtn = document.getElementById('generatePlan');
-            const customPrompt = document.getElementById('custom-prompt');
-            const fileUpload = document.getElementById('file-upload');
-            const studyPlanDiv = document.getElementById('study-plan');
-            const loadingDiv = document.getElementById('loading');
-            const errorDiv = document.getElementById('error');
+        loadingDiv.classList.remove('hidden');
+        errorDiv.classList.add('hidden');
+        studyPlanDiv.innerHTML = '';
 
-            generatePlanBtn.addEventListener('click', async function() {
-                const prompt = customPrompt.value.trim();
-                const file = fileUpload.files[0];
-                
-                if (!prompt && !file) {
-                    errorDiv.textContent = 'Моля, въведете инструкции или качете PDF файл';
-                    errorDiv.classList.remove('hidden');
-                    return;
-                }
+        const formData = new FormData();
+        if (prompt) formData.append('text', prompt);
+        if (file) formData.append('pdf', file);
 
-                loadingDiv.classList.remove('hidden');
-                errorDiv.classList.add('hidden');
-                studyPlanDiv.innerHTML = '';
+        try {
+          const response = await fetch('/generate_study_plan', {
+            method: 'POST',
+            body: formData
+          });
 
-                const formData = new FormData();
-                if (prompt) formData.append('text', prompt);
-                if (file) formData.append('pdf', file);
+          const data = await response.json();
 
-                try {
-                    const response = await fetch('/generate_study_plan', {
-                        method: 'POST',
-                        body: formData
-                    });
-
-                    const data = await response.json();
-                    
-                    if (!response.ok || data.error) {
-                        if (response.status === 429) {
-                            errorDiv.innerHTML = `
+          if (!response.ok || data.error) {
+            if (response.status === 429) {
+              errorDiv.innerHTML = `
                                 <div class="flex flex-col items-center gap-2">
-                                    <p class="text-lg font-semibold">API quota exceeded</p>
-                                    <p class="text-sm">The AI service is currently experiencing high demand.</p>
-                                    <p class="text-sm">Please try again in ${data.retry_after || 60} seconds.</p>
+                                    <p class="text-lg font-semibold">API квотата е изчерпана</p>
+                                    <p class="text-sm">AI услугата в момента е претоварена.</p>
+                                    <p class="text-sm">Моля, опитайте отново след ${data.retry_after || 60} секунди.</p>
                                     <button onclick="retryGeneration()" class="btn mt-2">
-                                        <i class="fas fa-redo"></i> Retry
+                                        <i class="fas fa-redo"></i> Опитай отново
                                     </button>
                                 </div>
                             `;
-                        } else {
-                            throw new Error(data.error || 'Failed to generate study plan');
-                        }
-                        errorDiv.classList.remove('hidden');
-                        return;
-                    }
+            } else {
+              errorDiv.innerHTML = `
+                                <div class="flex flex-col items-center gap-2">
+                                    <p class="text-lg font-semibold">Грешка</p>
+                                    <p class="text-sm">${data.error || 'Неуспешно генериране на учебен план'}</p>
+                                    <p class="text-sm">${data.details || 'Моля, опитайте отново'}</p>
+                                    <button onclick="retryGeneration()" class="btn mt-2">
+                                        <i class="fas fa-redo"></i> Опитай отново
+                                    </button>
+                                </div>
+                            `;
+            }
+            errorDiv.classList.remove('hidden');
+            return;
+          }
 
-                    studyPlanDiv.innerHTML = data.study_plan;
-                    
-                    // Add print button
-                    const printButton = document.createElement('button');
-                    printButton.className = 'btn mt-4';
-                    printButton.innerHTML = '<i class="fas fa-print"></i> Принтирай';
-                    printButton.onclick = () => window.print();
-                    studyPlanDiv.appendChild(printButton);
+          studyPlanDiv.innerHTML = data.study_plan;
 
-                } catch (error) {
-                    errorDiv.textContent = error.message;
-                    errorDiv.classList.remove('hidden');
-                } finally {
-                    loadingDiv.classList.add('hidden');
-                }
-            });
+          // Add print button
+          const printButton = document.createElement('button');
+          printButton.className = 'btn mt-4';
+          printButton.innerHTML = '<i class="fas fa-print"></i> Принтирай';
+          printButton.onclick = () => window.print();
+          studyPlanDiv.appendChild(printButton);
 
-            // Add retry function
-            window.retryGeneration = async function() {
-                errorDiv.classList.add('hidden');
-                generatePlanBtn.click();
-            };
+        } catch (error) {
+          errorDiv.innerHTML = `
+                        <div class="flex flex-col items-center gap-2">
+                            <p class="text-lg font-semibold">Грешка</p>
+                            <p class="text-sm">${error.message}</p>
+                            <button onclick="retryGeneration()" class="btn mt-2">
+                                <i class="fas fa-redo"></i> Опитай отново
+                            </button>
+                        </div>
+                    `;
+          errorDiv.classList.remove('hidden');
+        } finally {
+          loadingDiv.classList.add('hidden');
+        }
+      });
+
+      // Add retry function
+      window.retryGeneration = async function () {
+        errorDiv.classList.add('hidden');
+        generatePlanBtn.click();
+      };
+    });
+
+    // Initialize everything when the document is loaded
+    document.addEventListener('DOMContentLoaded', function () {
+      // Initialize timers
+      updateTimerDisplay();
+      updateBreakTimerDisplay();
+
+      // Initialize task list
+      updateTaskList();
+
+      // Set up file upload listeners
+      const fileUpload = document.getElementById('file-upload');
+      const pdfFile = document.getElementById('pdfFile');
+
+      if (fileUpload && pdfFile) {
+        fileUpload.addEventListener('click', () => {
+          pdfFile.click();
         });
 
-        // Initialize everything when the document is loaded
-        document.addEventListener('DOMContentLoaded', function() {
-            // Initialize timers
-            updateTimerDisplay();
-            updateBreakTimerDisplay();
-
-            // Initialize task list
-            updateTaskList();
-
-            // Set up file upload listeners
-            const fileUpload = document.getElementById('file-upload');
-            const pdfFile = document.getElementById('pdfFile');
-
-            fileUpload.addEventListener('click', () => {
-                pdfFile.click();
-            });
-
-            fileUpload.addEventListener('dragover', (e) => {
-                e.preventDefault();
-                fileUpload.classList.add('dragover');
-            });
-
-            fileUpload.addEventListener('dragleave', () => {
-                fileUpload.classList.remove('dragover');
-            });
-
-            fileUpload.addEventListener('drop', (e) => {
-                e.preventDefault();
-                fileUpload.classList.remove('dragover');
-                pdfFile.files = e.dataTransfer.files;
-            });
+        fileUpload.addEventListener('dragover', (e) => {
+          e.preventDefault();
+          fileUpload.classList.add('dragover');
         });
 
-        async function handleSubmission(event) {
-            event.preventDefault();
-            
-            const topicInput = document.getElementById('topic');
-            const fileInput = document.getElementById('pdfFile');
-            const resultDiv = document.getElementById('result');
-            const loadingSpinner = document.getElementById('loadingSpinner');
-            const loadingText = document.getElementById('loadingText');
-            
-            // Validate input
-            if (!topicInput.value.trim() && !fileInput.files[0]) {
-                resultDiv.innerHTML = '<div class="error">Please enter a topic or upload a PDF file.</div>';
-                return;
+        fileUpload.addEventListener('dragleave', () => {
+          fileUpload.classList.remove('dragover');
+        });
+
+        fileUpload.addEventListener('drop', (e) => {
+          e.preventDefault();
+          fileUpload.classList.remove('dragover');
+
+          const files = e.dataTransfer.files;
+          if (files.length > 0) {
+            const file = files[0];
+            if (file.type === 'application/pdf') {
+              pdfFile.files = files;
+              fileUpload.querySelector('.file-label').textContent = file.name;
+            } else {
+              errorDiv.innerHTML = `
+                  <div class="flex flex-col items-center gap-2">
+                      <p class="text-lg font-semibold">Грешка</p>
+                      <p class="text-sm">Моля, качете PDF файл</p>
+                  </div>
+              `;
+              errorDiv.classList.remove('hidden');
             }
-            
-            // Show loading spinner
-            loadingSpinner.style.display = 'block';
-            loadingText.textContent = 'Generating test...';
-            
-            try {
-                const formData = new FormData();
-                if (topicInput.value.trim()) {
-                    formData.append('text', topicInput.value.trim());
-                }
-                if (fileInput.files[0]) {
-                    formData.append('pdf', fileInput.files[0]);
-                }
-                
-                const response = await fetch('/handle_test', {
-                    method: 'POST',
-                    body: formData
-                });
-                
-                const data = await response.json();
-                
-                if (!response.ok || data.error) {
-                    throw new Error(data.details || data.error || 'Failed to generate test');
-                }
-                
-                // Display the test
-                resultDiv.innerHTML = data.html;
-                
-                // Add event listener for test submission
-                const testForm = document.getElementById('testForm');
-                if (testForm) {
-                    testForm.addEventListener('submit', submitTest);
-                }
-                
-            } catch (error) {
-                resultDiv.innerHTML = `<div class="error">${error.message}</div>`;
-            } finally {
-                loadingSpinner.style.display = 'none';
+          }
+        });
+
+        pdfFile.addEventListener('change', (e) => {
+          const file = e.target.files[0];
+          if (file) {
+            if (file.type === 'application/pdf') {
+              fileUpload.querySelector('.file-label').textContent = file.name;
+            } else {
+              errorDiv.innerHTML = `
+                  <div class="flex flex-col items-center gap-2">
+                      <p class="text-lg font-semibold">Грешка</p>
+                      <p class="text-sm">Моля, качете PDF файл</p>
+                  </div>
+              `;
+              errorDiv.classList.remove('hidden');
+              pdfFile.value = '';
             }
-            
-            // Scroll to results
-            resultDiv.scrollIntoView({ behavior: 'smooth' });
+          }
+        });
+      }
+    });
+
+    async function handleSubmission(event) {
+      event.preventDefault();
+
+      const topicInput = document.getElementById('topic');
+      const fileInput = document.getElementById('pdfFile');
+      const resultDiv = document.getElementById('result');
+      const loadingSpinner = document.getElementById('loadingSpinner');
+      const loadingText = document.getElementById('loadingText');
+
+      // Validate input
+      if (!topicInput.value.trim() && !fileInput.files[0]) {
+        resultDiv.innerHTML = '<div class="error">Please enter a topic or upload a PDF file.</div>';
+        return;
+      }
+
+      // Show loading spinner
+      loadingSpinner.style.display = 'block';
+      loadingText.textContent = 'Generating test...';
+
+      try {
+        const formData = new FormData();
+        if (topicInput.value.trim()) {
+          formData.append('text', topicInput.value.trim());
+        }
+        if (fileInput.files[0]) {
+          formData.append('pdf', fileInput.files[0]);
         }
 
-        async function submitTest(event) {
-            event.preventDefault();
-            
-            const form = event.target;
-            const resultDiv = document.getElementById('testResult');
-            const loadingSpinner = document.getElementById('loadingSpinner');
-            const loadingText = document.getElementById('loadingText');
-            
-            // Show loading spinner
-            loadingSpinner.style.display = 'block';
-            loadingText.textContent = 'Grading test...';
-            
-            try {
-                const formData = new FormData(form);
-                const response = await fetch('/grade_test', {
-                    method: 'POST',
-                    body: formData
-                });
-                
-                const data = await response.json();
-                
-                if (!response.ok || data.error) {
-                    throw new Error(data.details || data.error || 'Failed to grade test');
-                }
-                
-                // Display the results
-                resultDiv.innerHTML = data.html;
-                
-            } catch (error) {
-                resultDiv.innerHTML = `<div class="error">${error.message}</div>`;
-            } finally {
-                loadingSpinner.style.display = 'none';
-            }
-            
-            // Scroll to results
-            resultDiv.scrollIntoView({ behavior: 'smooth' });
+        const response = await fetch('/handle_test', {
+          method: 'POST',
+          body: formData
+        });
+
+        const data = await response.json();
+
+        if (!response.ok || data.error) {
+          throw new Error(data.details || data.error || 'Failed to generate test');
         }
-    </script>
+
+        // Display the test
+        resultDiv.innerHTML = data.html;
+
+        // Add event listener for test submission
+        const testForm = document.getElementById('testForm');
+        if (testForm) {
+          testForm.addEventListener('submit', submitTest);
+        }
+
+      } catch (error) {
+        resultDiv.innerHTML = `<div class="error">${error.message}</div>`;
+      } finally {
+        loadingSpinner.style.display = 'none';
+      }
+
+      // Scroll to results
+      resultDiv.scrollIntoView({ behavior: 'smooth' });
+    }
+
+    async function submitTest(event) {
+      event.preventDefault();
+
+      const form = event.target;
+      const resultDiv = document.getElementById('testResult');
+      const loadingSpinner = document.getElementById('loadingSpinner');
+      const loadingText = document.getElementById('loadingText');
+
+      // Show loading spinner
+      loadingSpinner.style.display = 'block';
+      loadingText.textContent = 'Grading test...';
+
+      try {
+        const formData = new FormData(form);
+        const response = await fetch('/grade_test', {
+          method: 'POST',
+          body: formData
+        });
+
+        const data = await response.json();
+
+        if (!response.ok || data.error) {
+          throw new Error(data.details || data.error || 'Failed to grade test');
+        }
+
+        // Display the results
+        resultDiv.innerHTML = data.html;
+
+      } catch (error) {
+        resultDiv.innerHTML = `<div class="error">${error.message}</div>`;
+      } finally {
+        loadingSpinner.style.display = 'none';
+      }
+
+      // Scroll to results
+      resultDiv.scrollIntoView({ behavior: 'smooth' });
+    }
+  </script>
 </body>
-</html> 
+
+</html>

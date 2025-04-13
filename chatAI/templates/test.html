@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test Your Knowledge</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-50 p-8">
+    <div class="max-w-3xl mx-auto bg-white rounded-lg shadow-lg p-6">
+        <h2 class="text-2xl font-semibold text-gray-800 mb-6">Test Your Knowledge</h2>
+        <form id="testForm" class="space-y-6">
+            {% for question in questions %}
+            <div class="border rounded-lg p-4">
+                <h4 class="text-lg font-semibold mb-2">Question {{ loop.index }}: {{ question.question }}</h4>
+                <div class="space-y-2">
+                    {% for option in question.options %}
+                    <label class="flex items-center space-x-2">
+                        <input type="radio" name="q{{ loop.parent.loop.index0 }}" value="{{ loop.index0 }}" class="form-radio" required>
+                        <span>{{ option }}</span>
+                    </label>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endfor %}
+            <div class="text-center">
+                <button type="submit" class="px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 focus:outline-none">
+                    Submit Test
+                </button>
+            </div>
+        </form>
+        <div id="testResults" class="mt-6 hidden">
+            <div class="p-4 rounded-lg" id="resultMessage"></div>
+            <div class="mt-4 text-center">
+                <button id="retakeTestBtn" class="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 focus:outline-none">
+                    <i class="fas fa-redo mr-1"></i> Retake Test
+                </button>
+            </div>
+        </div>
+    </div>
+    <script>
+        document.getElementById('testForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const answers = Array.from(document.querySelectorAll('input[type="radio"]:checked')).map(input => 
+                parseInt(input.value)
+            );
+            
+            if (answers.length !== {{ questions|length }}) {
+                alert('Please answer all questions');
+                return;
+            }
+
+            fetch('/evaluate_test', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ answers: answers })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.error) {
+                    throw new Error(data.error);
+                }
+                const resultDiv = document.getElementById('testResults');
+                const resultMessage = document.getElementById('resultMessage');
+                
+                resultMessage.className = data.passed ? 
+                    'bg-green-100 text-green-800 p-4 rounded-lg' : 
+                    'bg-red-100 text-red-800 p-4 rounded-lg';
+                
+                resultMessage.innerHTML = '<div class="flex items-center">' +
+                    '<i class="fas ' + (data.passed ? 'fa-check-circle' : 'fa-times-circle') + ' text-2xl mr-2"></i>' +
+                    '<span class="text-lg font-semibold">' +
+                    (data.passed ? 'Congratulations! You passed the test!' : 'You need more practice.') +
+                    '</span></div><p class="mt-2">Score: ' + data.score + '%</p>';
+                
+                resultDiv.classList.remove('hidden');
+                document.getElementById('testForm').classList.add('hidden');
+            })
+            .catch(error => {
+                alert('Error evaluating test: ' + error.message);
+            });
+        });
+
+        document.getElementById('retakeTestBtn').addEventListener('click', function() {
+            document.getElementById('testResults').classList.add('hidden');
+            document.getElementById('testForm').classList.remove('hidden');
+            document.querySelectorAll('input[type="radio"]').forEach(radio => radio.checked = false);
+        });
+    </script>
+</body>
+</html> 

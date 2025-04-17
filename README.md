@@ -38,3 +38,14 @@ cp .env.example .env
 
 # Start development server
 npm run dev
+
+
+## 🤝 Team Collaboration
+
+Our Agile Team:
+
+- **Radostina Djambova** &mdash; Team Lead  
+- **Adelina Stankova** &mdash; Lead Developer (Frontend)  
+- **Bogdan Rusakov** &mdash; Developer  
+- **Lilia Vuleva** &mdash; Business Logic  
+- **Ivona Georgieva** &mdash; Advertisement  

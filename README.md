@@ -38,7 +38,7 @@ cp .env.example .env
 
 # Start development server
 npm run dev
-
+```
 
 ## 🤝 Team Collaboration
 

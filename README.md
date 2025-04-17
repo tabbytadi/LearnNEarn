@@ -1,6 +1,6 @@
 # Learn&Earn 🎯💰  
 **Transform Study Time into Real Discounts**  
-![Learn&Earn Dashboard Preview](https://github.com/user-attachments/assets/a01757e3-6fc1-409c-8caf-fe9ff706f98a)![banner]
+![Learn&Earn Dashboard Preview](https://github.com/user-attachments/assets/a01757e3-6fc1-409c-8caf-fe9ff706f98a)
 
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)]()
